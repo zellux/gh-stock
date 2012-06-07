@@ -37,5 +37,19 @@ class StockData
     def updated_at
       Rails.cache.fetch('last-update').localtime("+08:00").strftime('%Y-%m-%d %H:%M:%S')
     end
+
+    def to_clipboard
+      def count_mb(str)
+        count = 0
+        str.split(//).each {|c|
+          count += 1 if (c.bytesize != c.length)
+        }
+        count
+      end
+      data.map do |line|
+        name_len = 14 - count_mb(line['userName'])
+        "%-4s%-#{name_len}s%8s%8s%8s%8s%13s" % ['pm', 'userName', 'zyll1', 'yyll', 'zyll2', 'ryll', 'zzc'].map { |e| line[e] }
+      end.join("\n")
+    end
   end
 end

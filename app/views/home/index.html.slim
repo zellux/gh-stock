@@ -1,10 +1,9 @@
 div.page-header
   h1 光华论股2012年度比赛排名
 
-div
-  | 上次更新：
-  =' @updated_at
-  = link_to '刷新数据', '/refresh', method: :post, class: 'btn button-refresh'
+span.label.label-info
+  | 复制数据到剪贴板
+== clippy(StockData.to_clipboard)
 
 table.table.table-striped
   tr
@@ -24,3 +23,10 @@ table.table.table-striped
         td = player['zyll2']
         td = player['ryll']
         td = player['zzc']
+
+div
+  | 上次更新：
+  =' @updated_at
+  = link_to '刷新数据', '/refresh', method: :post, class: 'btn button-refresh btn-mini btn-primary'
+
+br
