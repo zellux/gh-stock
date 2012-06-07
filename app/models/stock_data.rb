@@ -1,3 +1,4 @@
+#encoding: utf-8
 require "uri"
 require "net/http"
 
@@ -46,9 +47,10 @@ class StockData
         }
         count
       end
+      "排名 用户名       总盈利率 月盈利率 周盈利率 日盈利率      总资产\n" +
       data.map do |line|
         name_len = 14 - count_mb(line['userName'])
-        "%-4s%-#{name_len}s%8s%8s%8s%8s%13s" % ['pm', 'userName', 'zyll1', 'yyll', 'zyll2', 'ryll', 'zzc'].map { |e| line[e] }
+        "%-4s%-#{name_len}s%9s%11s%11s%11s%13s" % ['pm', 'userName', 'zyll1', 'yyll', 'zyll2', 'ryll', 'zzc'].map { |e| line[e] }
       end.join("\n")
     end
   end
