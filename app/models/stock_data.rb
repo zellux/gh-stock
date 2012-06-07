@@ -25,10 +25,11 @@ class StockData
     end
 
     def data
-      Rails.cache.fetch('stock-data', expire_in: 3600) do
+      if Rails.cache.fetch('last-update') == nil || Time.now - Rails.cache.fetch('last-update') > 60 * 60
+        Rails.cache.write('stock-data', merge_table)
         Rails.cache.write('last-update', Time.now)
-        merge_table
       end
+      Rails.cache.fetch('stock-data')
     end
 
     def clean_cache
