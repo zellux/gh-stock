@@ -1,0 +1,26 @@
+div.page-header
+  h1 光华论股2012年度比赛排名
+
+div
+  | 上次更新：
+  =' @updated_at
+  = link_to '刷新数据', '/refresh', method: :post, class: 'btn button-refresh'
+
+table.table.table-striped
+  tr
+    th 排名
+    th 用户名
+    th 总盈利率
+    th 月盈利率
+    th 周盈利率
+    th 日盈利率
+    th 总资产
+  - for player in @data do
+      tr
+        td = player['pm']
+        td = player['userName']
+        td = player['zyll1']
+        td = player['yyll']
+        td = player['zyll2']
+        td = player['ryll']
+        td = player['zzc']
