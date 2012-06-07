@@ -5,6 +5,11 @@ span.label.label-info
   | 复制数据到剪贴板
 == clippy(StockData.to_clipboard)
 
+div
+  | 上次更新：
+  =' @updated_at
+  = link_to '刷新数据', '/refresh', method: :post, class: 'btn button-refresh btn-mini btn-primary'
+
 table.table.table-striped
   tr
     th 排名
@@ -23,10 +28,5 @@ table.table.table-striped
         td = player['zyll2']
         td = player['ryll']
         td = player['zzc']
-
-div
-  | 上次更新：
-  =' @updated_at
-  = link_to '刷新数据', '/refresh', method: :post, class: 'btn button-refresh btn-mini btn-primary'
 
 br
