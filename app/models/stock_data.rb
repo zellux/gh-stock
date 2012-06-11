@@ -21,6 +21,21 @@ class StockData
       2.upto(json['result']['pages']['pageCount']) do |i|
         data += fetch_remote_json(i)['result']['pmData']
       end
+      current_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f } / data.size
+      last_month_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f / (1 + e['yyll'].to_f / 100) } / data.size
+      last_week_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f / (1 + e['zyll'].to_f / 100) } / data.size
+      last_day_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f / (1 + e['ryll'].to_f / 100) } / data.size
+      Rails.logger.debug(last_month_total)
+      total = {
+        'pm' => '',
+        'userName' => '总计',
+        'zyll1' => '%.2f%' % (current_total / 10000.0 - 100.0),
+        'yyll' => '%.2f%' % (current_total / last_month_total * 100 - 100.0),
+        'zyll2' => '%.2f%' % (current_total / last_week_total * 100 - 100.0),
+        'ryll' => '%.2f%' % (current_total / last_day_total * 100 - 100.0),
+        'zzc' => '%.2f' % current_total
+      } rescue nil
+      data += [total] if total
       data
     end
 
@@ -34,6 +49,7 @@ class StockData
 
     def clean_cache
       Rails.cache.delete('stock-data')
+      Rails.cache.delete('last-update')
     end
 
     def updated_at
