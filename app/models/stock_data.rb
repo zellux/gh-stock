@@ -23,7 +23,7 @@ class StockData
       end
       current_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f } / data.size
       last_month_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f / (1 + e['yyll'].to_f / 100) } / data.size
-      last_week_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f / (1 + e['zyll'].to_f / 100) } / data.size
+      last_week_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f / (1 + e['zyll2'].to_f / 100) } / data.size
       last_day_total = data.inject(0.0) { |a, e| a + e['zzc'].to_f / (1 + e['ryll'].to_f / 100) } / data.size
       Rails.logger.debug(last_month_total)
       total = {
