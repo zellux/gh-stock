@@ -6,7 +6,7 @@ class StockData
   # attr_accessible :title, :body
   class << self
     def fetch_remote_json(page=1)
-      url = 'http://moni.10jqka.com.cn/hezuo/index/searchph/fudanstock2012y'
+      url = 'http://moni.10jqka.com.cn/hezuo/index/searchph/fudanstock2013'
       params = {
         page: page,
         orderField: 2
